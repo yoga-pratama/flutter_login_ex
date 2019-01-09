@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>748541421322-jb0ajavtnh4k9mk5gniqt69l53ukkrdi.apps.googleusercontent.com</string>
+	<string>748541421322-bafbougd2jhjd5ev19f4jjk609ppn95o.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.748541421322-jb0ajavtnh4k9mk5gniqt69l53ukkrdi</string>
+	<string>com.googleusercontent.apps.748541421322-bafbougd2jhjd5ev19f4jjk609ppn95o</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDtNrq6VSsBbx4bwI7CHnj0c_lKWZhZLy4</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.firebaseLogin</string>
+	<string>YPA.firebaseLogin</string>
 	<key>PROJECT_ID</key>
 	<string>flutterapp-d017d</string>
 	<key>STORAGE_BUCKET</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:748541421322:ios:4e5ae891e5959fae</string>
+	<string>1:748541421322:ios:14f68bf34319476b</string>
 	<key>DATABASE_URL</key>
 	<string>https://flutterapp-d017d.firebaseio.com</string>
 </dict>
