@@ -22,6 +22,18 @@ final ThemeData kDefaultTheme = new ThemeData(
           ? KIOSTheme
           : kDefaultTheme */
 class MyApp extends StatelessWidget {
+  Widget _handleCurrentState() {
+    return new StreamBuilder<FirebaseUser>(
+        stream: _auth.onAuthStateChanged,
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.hasData) {
+            return new HomePage(user: snapshot.data);
+          } else {
+            return new LoginPage();
+          }
+        });
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -31,8 +43,46 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         accentColor: Colors.blue,
       ),
-      home: LoginPage(),
+      home: _handleCurrentState(),
     );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  final FirebaseUser user;
+  HomePage({Key key, @required this.user}) : super(key: key);
+
+  @override
+  _HomePage createState() => _HomePage();
+}
+
+class _HomePage extends State<HomePage> {
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home Page'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: logOut,
+          )
+        ],
+      ),
+      body: Builder(
+        builder: (context) => Container(
+              child: Center(
+                child: Text('Welcome ${widget.user.email}'),
+              ),
+            ),
+      ),
+    );
+  }
+
+  void logOut() {
+    _handlSignOut()
+        .catchError((e) => Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text('${e.toString()}'),
+            )));
   }
 }
 
@@ -157,4 +207,9 @@ Future<FirebaseUser> _handelSignin(String email, String password) async {
 
   //print("sign in " + user.displayName);
   return user;
+}
+
+Future<FirebaseUser> _handlSignOut() async {
+  _auth.signOut();
+  return null;
 }
