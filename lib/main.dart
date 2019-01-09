@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+final _formKey = GlobalKey<FormState>();
+
 void main() => runApp(MyApp());
 
 final ThemeData KIOSTheme = new ThemeData(
@@ -41,14 +43,10 @@ class _LoginPage extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-        toolbarOpacity: 0,
-      ),
       body: Builder(
           builder: (context) => Container(
                 decoration: new BoxDecoration(
-                  image: new DecorationImage(
+                    image: new DecorationImage(
                   image: new AssetImage("images/lake.jpg"),
                   fit: BoxFit.cover,
                 )),
@@ -57,32 +55,46 @@ class _LoginPage extends State<LoginPage> {
                         width: 400,
                         height: 400,
                         margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Column(
-                          children: <Widget>[
-                            TextFormField(
-                              decoration: InputDecoration(
-                                  labelText: ('Enter Your Email'),
-                                  suffixIcon:
-                                      Icon(Icons.account_circle, size: 30)),
-                            ),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                labelText: ('Enter Your Password'),
-                                suffixIcon: Icon(
-                                  Icons.lock,
-                                  size: 30,
-                                ),
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: <Widget>[
+                              TextFormField(
+                                decoration: InputDecoration(
+                                    labelText: ('Enter Your Email'),
+                                    suffixIcon:
+                                        Icon(Icons.account_circle, size: 30)),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Enter Email';
+                                  }
+                                },
                               ),
-                            ),
-                            new Container(
-                              width: 400,
-                              child: RaisedButton(
-                                  textColor: Colors.white,
-                                  color: Colors.blueAccent,
-                                  child: Text('Login'),
-                                  onPressed: () => _submitPressed(context)),
-                            )
-                          ],
+                              TextFormField(
+                                keyboardType: TextInputType.emailAddress,
+                                decoration: InputDecoration(
+                                  labelText: ('Enter Your Password'),
+                                  suffixIcon: Icon(
+                                    Icons.lock,
+                                    size: 30,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Enter Password';
+                                  }
+                                },
+                              ),
+                              new Container(
+                                width: 400,
+                                child: RaisedButton(
+                                    textColor: Colors.white,
+                                    color: Colors.blueAccent,
+                                    child: Text('Login'),
+                                    onPressed: () => _submitPressed(context)),
+                              )
+                            ],
+                          ),
                         ))),
               )),
     );
@@ -98,6 +110,11 @@ class _LoginPage extends State<LoginPage> {
                 .showSnackBar(SnackBar(content: Text('You pressed snackbar')));
           }),
     )); */
+    if (_formKey.currentState.validate()) {
+      // If the form is valid, we want to show a Snackbar
+      Scaffold.of(context)
+          .showSnackBar(SnackBar(content: Text('Processing Data')));
+    }
   }
 }
 
